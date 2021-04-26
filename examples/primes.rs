@@ -1,5 +1,5 @@
-use std::time::{Duration, Instant};
 use libcm;
+use std::time::{Duration, Instant};
 
 fn main() {
     let mut primes: Vec<u64> = Vec::new();
