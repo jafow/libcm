@@ -311,6 +311,7 @@ fn miller_test() {
     assert_eq!(None, miller_rabin(18_446_744_073_709_551_615u64));
     assert_eq!(None, miller_rabin(561));
     assert_eq!(None, miller_rabin(41041));
+    assert_eq!(None, miller_rabin(46657));
 }
 
 #[test]
