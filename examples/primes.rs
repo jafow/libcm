@@ -1,15 +1,20 @@
 use libcm;
-use std::time::{Duration, Instant};
+use std::time::Instant;
+use rayon::prelude::*;
 
 fn main() {
-    let mut primes: Vec<u64> = Vec::new();
     let start = Instant::now();
-    for x in 3..100_000 {
-        if let Some(x) = libcm::miller_rabin(x as u64) {
-            primes.push(x);
-        }
-    }
-    println!("we got count: {:?} primes", primes.len());
+    let prime_count = count_primes(100_000);
     let end = start.elapsed().as_secs();
+    println!("we got count: {:?} primes", prime_count);
     println!("runtime {:?}", &end);
+}
+
+fn count_primes (limit: u64) -> u64 {
+    (3..limit).into_par_iter()
+    .filter(|i| match libcm::miller_rabin(*i) {
+        Some(_) => true,
+        None => false
+    })
+    .count() as u64
 }
